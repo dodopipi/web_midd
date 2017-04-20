@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>奴逗寵物生活館</title>
+	<link rel="stylesheet" href="new.css">
+</head>
+<body>
+<div class="wrap">
+	<div class="header"><a href="index.html"><img src="./img/logo.png"></a>
+	
+	<input id="search-box" type="text" name="search-box" />
+		<ul id="choose">
+			<li><a href="product_index.html"><span>狗狗區</span></a></li>
+			<li><a href="">貓貓區</a></li>
+			<li><a href="">小動物區</a></li>
+			<li><a href="">水族類區</a></li>
+			
+		</ul>
+	</div>
+	<div class="content">
+		<a href="promotion.html">
+		<div id="admove">
+			<div class="slides">
+				<ul>
+					<li><a href="promotion.html"><img src="img/ad1.png" alt="" /></a></li>
+					<li><a href="promotion.html"><img src="img/ad2.png" alt="" /></a></li>
+					<li><a href="promotion.html"><img src="img/ad3.png" alt="" /></a></li>
+				
+				</ul>
+			</div></a>
+		<div class="prev"><a href="#"><img src="img/箭頭左.PNG"></a></div>
+		<div class="next"><a href="#" ><img src="img/箭頭右.PNG"></a></div>
+    	</div>
+		<div id="sale">
+			<div id="rankingrun">
+			<div class="slides">
+				<ul>
+					<li><a href="product_index.html"><img src="img/ranking.png" alt="" /></a></li>
+					<li><a href="#"><img src="img/ranking2.png" alt="" /></a></li>
+					<li><a href="#"><img src="img/ranking3.png" alt="" /></a></li>
+					<li><a href="#"><img src="img/ranking4.png" alt="" /></a></li>
+				</ul>
+			</div></a>
+		<div class="prev"><a href="#"><img src="img/箭頭左.PNG"></a></div>
+		<div class="next"><a href="#" ><img src="img/箭頭右.PNG"></a></div>
+    	</div>
+		</div>
+		
+	</div>
+	<div class="footer">
+		<div id="f_left">
+	    	<h3>客服資訊</h3>
+			<ul>
+				<li>客服專線:0987587087</li>
+				<li>營業時間:24hr  全年無休</li>
+				<li>客服信箱:noodo487@gmail.com</li>
+			</ul>
+		</div>
+	    <div id="f_right">
+	    	<h3>公司介紹</h3>
+			<ul>
+				<li>連絡電話:(06)388588488</li>
+				<li>地址:高雄市楠梓區88888888號</li>
+				<li>信箱:noodo487@gmail.com</li>
+			</ul>
+	    </div>
+		<div style="clear:both;"></div>
+	</div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+    <SCRIPT language="JavaScript">
+    		$(function(){
+	// 先取得必要的元素並用 jQuery 包裝
+	// 再來取得 $block 的寬度及設定動畫時間
+	var $block = $('#admove'), 
+		$slides = $block.find('.slides'), 
+		$ul = $slides.find('ul'), 
+		_width = $slides.width(), 
+		_left = _width * -1, 
+		_animateSpeed = 400, 
+		// 加入計時器, 輪播時間及控制開關
+		timer, _showSpeed = 3000, _stop = false;
+ 
+	// 先把最後一個 li 的內容插入到第一個 li 前面
+	// 並設定 $ul 的 left 及 width
+	$ul.find('li:first').before($ul.find('li:last')).end().css({
+		left: _left,
+		width: _width * ($ul.find('li').length + 1)
+	});
+ 
+	// 當點擊到 a.prev 時
+	var $prev = $block.find('.prev').click(function(){
+		// 移動 $ul
+		$ul.stop(false, true).animate({'left' : _left + _width}, _animateSpeed, function () {
+			// 把最後一個 li 的內容插入到第一個 li 前面
+			$ul.find('li:first').before($ul.find('li:last')).end().css('left', _left);
+			// 當移動到正確位置後, 依判斷來啟動計時器
+			if(!_stop) {
+				clearTimeout(timer);
+				timer = setTimeout(move, _showSpeed);
+			}
+		});
+		return false;
+	});
+ 
+	// 當點擊到 a.next 時
+	var $next = $block.find('.next').click(function(){
+		// 移動 $ul
+		$ul.stop(false, true).animate({'left' : _left - _width}, _animateSpeed, function () {
+			// 把第一個 li 的內容插入到最後一個 li 後面
+			$ul.find('li:last').after($ul.find('li:first')).end().css('left', _left);
+			// 當移動到正確位置後, 依判斷來啟動計時器
+			if(!_stop) {
+				clearTimeout(timer);
+				timer = setTimeout(move, _showSpeed);
+			}
+		});
+		return false;
+	});
+ 
+	// 如果滑鼠移入 $block 時
+	$block.hover(function(){
+		// 關閉開關及計時器
+		_stop = true;
+		clearTimeout(timer);
+	}, function(){
+		// 如果滑鼠移出 $block 時
+		// 開啟開關及計時器
+		_stop = false;
+		timer = setTimeout(move, _showSpeed);
+	}).find('a').focus(function(){
+		this.blur();
+	});
+ 
+	// 計時器使用
+	function move(){
+		$next.click();
+	};
+ 
+	timer = setTimeout(move, _showSpeed);
+});
+
+ $(function(){
+	// 先取得必要的元素並用 jQuery 包裝
+	// 再來取得 $block 的寬度及設定動畫時間
+	var $block = $('#rankingrun'), 
+		$slides = $block.find('.slides'), 
+		$ul = $slides.find('ul'), 
+		_width = $slides.width(), 
+		_left = _width * -1, 
+		_animateSpeed = 300, 
+		// 加入計時器, 輪播時間及控制開關
+		timer, _showSpeed = 4500, _stop = false;
+ 
+	// 先把最後一個 li 的內容插入到第一個 li 前面
+	// 並設定 $ul 的 left 及 width
+	$ul.find('li:first').before($ul.find('li:last')).end().css({
+		left: _left,
+		width: _width * ($ul.find('li').length + 1)
+	});
+ 
+	// 當點擊到 a.prev 時
+	var $prev = $block.find('.prev').click(function(){
+		// 移動 $ul
+		$ul.stop(false, true).animate({'left' : _left + _width}, _animateSpeed, function () {
+			// 把最後一個 li 的內容插入到第一個 li 前面
+			$ul.find('li:first').before($ul.find('li:last')).end().css('left', _left);
+			// 當移動到正確位置後, 依判斷來啟動計時器
+			if(!_stop) {
+				clearTimeout(timer);
+				timer = setTimeout(move, _showSpeed);
+			}
+		});
+		return false;
+	});
+ 
+	// 當點擊到 a.next 時
+	var $next = $block.find('.next').click(function(){
+		// 移動 $ul
+		$ul.stop(false, true).animate({'left' : _left - _width}, _animateSpeed, function () {
+			// 把第一個 li 的內容插入到最後一個 li 後面
+			$ul.find('li:last').after($ul.find('li:first')).end().css('left', _left);
+			// 當移動到正確位置後, 依判斷來啟動計時器
+			if(!_stop) {
+				clearTimeout(timer);
+				timer = setTimeout(move, _showSpeed);
+			}
+		});
+		return false;
+	});
+ 
+	// 如果滑鼠移入 $block 時
+	$block.hover(function(){
+		// 關閉開關及計時器
+		_stop = true;
+		clearTimeout(timer);
+	}, function(){
+		// 如果滑鼠移出 $block 時
+		// 開啟開關及計時器
+		_stop = false;
+		timer = setTimeout(move, _showSpeed);
+	}).find('a').focus(function(){
+		this.blur();
+	});
+ 
+	// 計時器使用
+	function move(){
+		$next.click();
+	};
+ 
+	timer = setTimeout(move, _showSpeed);
+});
+	</SCRIPT>
+</body>
+</html>
